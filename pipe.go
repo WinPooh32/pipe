@@ -15,7 +15,7 @@ type Pipeline[T any] []HandlerFunc[T]
 func Execute[T any](ctx context.Context, pipeline Pipeline[T], in T) (out T, err error) {
 	defer func() {
 		if rec := recover(); rec != nil {
-			err = fmt.Errorf("pipeline: recovered panic:\n%s", debug.Stack())
+			err = fmt.Errorf("pipeline: recovered panic: %s: \n%s", rec, debug.Stack())
 		}
 	}()
 
